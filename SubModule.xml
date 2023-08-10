@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Module>
+    <Name value="Hideout Party Unlimited"/>
+    <Id value="HideoutPartyUnlimited"/>
+    <Version value="v1.2.0"/>
+    <ModuleCategory value="Singleplayer"/>
+    <SingleplayerModule value="true"/>
+    <MultiplayerModule value="false"/>
+
+    <DependedModules>
+        <DependedModule Id="Bannerlord.Harmony" Optional="false"/>
+    </DependedModules>
+
+    <SubModules>
+        <SubModule>
+            <Name value="HideoutPartyUnlimited"/>
+            <DLLName value="HideoutPartyUnlimited.dll"/>
+            <SubModuleClassType value="HideoutPartyUnlimited.HideoutPartyUnlimited"/>
+            <Tags>
+                <Tag key="DedicatedServerType" value="none"/>
+                <Tag key="PlayerMaximumTroopCountForHideoutMission" value="9999"/>
+                <Tag key="TroopRecords" value="true"/>
+            </Tags>
+        </SubModule>
+    </SubModules>
+</Module>

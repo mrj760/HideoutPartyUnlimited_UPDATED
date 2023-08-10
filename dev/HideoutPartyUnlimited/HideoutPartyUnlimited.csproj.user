@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <StartAction>Program</StartAction>
+    <StartProgram>D:\Program Files\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\Bannerlord.exe</StartProgram>
+    <StartWorkingDirectory>D:\Program Files\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\</StartWorkingDirectory>
+    <StartArguments>/singleplayer _MODULES_%2aBannerlord.Harmony%2aNative%2aSandBoxCore%2aSandBox%2aStoryMode%2aCustomBattle%2aSkillChanger%2aHideoutPartyUnlimited%2a_MODULES_</StartArguments>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ProjectView>ProjectFiles</ProjectView>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ReferencePath>D:\Program Files\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\;D:\Program Files\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Native\bin\Win64_Shipping_Client\;D:\Program Files\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\SandBox\bin\Win64_Shipping_Client\;D:\Program Files\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\SandBoxCore\bin\Win64_Shipping_Client\;D:\Program Files\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\StoryMode\bin\Win64_Shipping_Client\</ReferencePath>
+  </PropertyGroup>
+</Project>

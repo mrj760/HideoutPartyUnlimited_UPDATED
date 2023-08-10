@@ -1,0 +1,4 @@
+bin/**
+dev/hideoutpartyunlimited/.vs/**
+dev/hideoutpartyunlimited/obj/**
+dev/hideoutpartyunlimited/packages/**
