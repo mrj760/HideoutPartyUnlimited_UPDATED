@@ -26,20 +26,12 @@ using TaleWorlds.MountAndBlade;
 
 namespace HideoutPartyUnlimited
 {
-    // Token: 0x0200000B RID: 11
     public class HideoutSendTroopsBehavior : CampaignBehaviorBase
     {
-        // Token: 0x1700000A RID: 10
-        // (get) Token: 0x06000042 RID: 66 RVA: 0x00002D41 File Offset: 0x00000F41
-        // (set) Token: 0x06000043 RID: 67 RVA: 0x00002D48 File Offset: 0x00000F48
         public static HideoutSendTroopsBehavior Instance { get; set; } = new HideoutSendTroopsBehavior();
 
-        // Token: 0x1700000B RID: 11
-        // (get) Token: 0x06000044 RID: 68 RVA: 0x00002D50 File Offset: 0x00000F50
-        // (set) Token: 0x06000045 RID: 69 RVA: 0x00002D58 File Offset: 0x00000F58
         private HideoutSendTroopsBehavior.HideoutOptinManager _HideoutOptionManager { get; set; }
 
-        // Token: 0x06000046 RID: 70 RVA: 0x00002D64 File Offset: 0x00000F64
         public override void RegisterEvents()
         {
             CampaignEvents.OnNewGameCreatedEvent.AddNonSerializedListener(this, new Action<CampaignGameStarter>(this.OnNewGameCreated));
@@ -47,26 +39,22 @@ namespace HideoutPartyUnlimited
             CampaignEvents.OnMissionEndedEvent.AddNonSerializedListener(this, new Action<IMission>(this.OnMissionEnded));
         }
 
-        // Token: 0x06000047 RID: 71 RVA: 0x00002DB6 File Offset: 0x00000FB6
         public override void SyncData(IDataStore dataStore)
         {
         }
 
-        // Token: 0x06000048 RID: 72 RVA: 0x00002DB8 File Offset: 0x00000FB8
         private void OnNewGameCreated(CampaignGameStarter campaignGameStarter)
         {
             this.AddGameMenus(campaignGameStarter);
             HideoutSendTroopsBehavior.HideoutState.CurrentState = HideoutSendTroopsBehavior.HideoutState.State.None;
         }
 
-        // Token: 0x06000049 RID: 73 RVA: 0x00002DC7 File Offset: 0x00000FC7
         private void OnGameLoaded(CampaignGameStarter campaignGameStarter)
         {
             this.AddGameMenus(campaignGameStarter);
             HideoutSendTroopsBehavior.HideoutState.CurrentState = HideoutSendTroopsBehavior.HideoutState.State.None;
         }
 
-        // Token: 0x0600004A RID: 74 RVA: 0x00002DD8 File Offset: 0x00000FD8
         private void AddGameMenus(CampaignGameStarter campaignGameStarter)
         {
             HideoutSendTroopsBehavior.HideoutConfig.LoadFile();
@@ -100,7 +88,6 @@ namespace HideoutPartyUnlimited
             this._HideoutOptionManager.ProcessAddGameMenuOption();
         }
 
-        // Token: 0x0600004B RID: 75 RVA: 0x00003298 File Offset: 0x00001498
         private void OnMissionEnded(IMission obj)
         {
             if (Settlement.CurrentSettlement != null && Settlement.CurrentSettlement.IsHideout && Settlement.CurrentSettlement == MobileParty.MainParty.CurrentSettlement)
@@ -113,7 +100,6 @@ namespace HideoutPartyUnlimited
             }
         }
 
-        // Token: 0x0600004C RID: 76 RVA: 0x00003309 File Offset: 0x00001509
         private void game_menu_hideout_option_on_init(MenuCallbackArgs args)
         {
             if (Settlement.CurrentSettlement != null && Settlement.CurrentSettlement.IsHideout)
@@ -126,21 +112,18 @@ namespace HideoutPartyUnlimited
             }
         }
 
-        // Token: 0x0600004D RID: 77 RVA: 0x00003339 File Offset: 0x00001539
         private bool game_menu_hideout_option_condition(MenuCallbackArgs args)
         {
             args.optionLeaveType = (GameMenuOption.LeaveType)18;
             return true;
         }
 
-        // Token: 0x0600004E RID: 78 RVA: 0x00003344 File Offset: 0x00001544
         private void game_menu_hideout_option_consequence(MenuCallbackArgs args)
         {
             this._HideoutOptionManager.MemoMenuStringID = args.MenuContext.GameMenu.StringId;
             GameMenu.SwitchToMenu("hideout_menu_option");
         }
 
-        // Token: 0x0600004F RID: 79 RVA: 0x0000336B File Offset: 0x0000156B
         private bool SendTroops_condition(MenuCallbackArgs args)
         {
             args.optionLeaveType = (GameMenuOption.LeaveType)10;
@@ -149,7 +132,6 @@ namespace HideoutPartyUnlimited
             return true;
         }
 
-        // Token: 0x06000050 RID: 80 RVA: 0x0000339C File Offset: 0x0000159C
         private void SendTroops_consequence(MenuCallbackArgs args)
         {
             HideoutSendTroopsBehavior.HideoutConfig.HideoutOption config = HideoutSendTroopsBehavior.HideoutConfig.Config;
@@ -157,7 +139,6 @@ namespace HideoutPartyUnlimited
             GameMenu.SwitchToMenu("hideout_menu_option");
         }
 
-        // Token: 0x06000051 RID: 81 RVA: 0x000033BB File Offset: 0x000015BB
         private void TextSetSwitch(string textID, bool flg)
         {
             if (flg)
@@ -168,7 +149,6 @@ namespace HideoutPartyUnlimited
             GameTexts.SetVariable(textID, "OFF");
         }
 
-        // Token: 0x06000052 RID: 82 RVA: 0x000033D7 File Offset: 0x000015D7
         private bool DaytimeAssault_condition(MenuCallbackArgs args)
         {
             args.optionLeaveType = (GameMenuOption.LeaveType)12;
@@ -177,7 +157,6 @@ namespace HideoutPartyUnlimited
             return true;
         }
 
-        // Token: 0x06000053 RID: 83 RVA: 0x00003408 File Offset: 0x00001608
         private void DaytimeAssault_consequence(MenuCallbackArgs args)
         {
             HideoutSendTroopsBehavior.HideoutConfig.HideoutOption config = HideoutSendTroopsBehavior.HideoutConfig.Config;
@@ -185,7 +164,6 @@ namespace HideoutPartyUnlimited
             GameMenu.SwitchToMenu("hideout_menu_option");
         }
 
-        // Token: 0x06000054 RID: 84 RVA: 0x00003427 File Offset: 0x00001627
         private bool LeftInventorySort_condition(MenuCallbackArgs args)
         {
             args.optionLeaveType = (GameMenuOption.LeaveType)14;
@@ -193,7 +171,6 @@ namespace HideoutPartyUnlimited
             return true;
         }
 
-        // Token: 0x06000055 RID: 85 RVA: 0x00003447 File Offset: 0x00001647
         private void LeftInventorySort_consequence(MenuCallbackArgs args)
         {
             HideoutSendTroopsBehavior.HideoutConfig.HideoutOption config = HideoutSendTroopsBehavior.HideoutConfig.Config;
@@ -201,7 +178,6 @@ namespace HideoutPartyUnlimited
             GameMenu.SwitchToMenu("hideout_menu_option");
         }
 
-        // Token: 0x06000056 RID: 86 RVA: 0x00003466 File Offset: 0x00001666
         private bool ManyBandits_condition(MenuCallbackArgs args)
         {
             args.optionLeaveType = (GameMenuOption.LeaveType)12;
@@ -209,7 +185,6 @@ namespace HideoutPartyUnlimited
             return true;
         }
 
-        // Token: 0x06000057 RID: 87 RVA: 0x00003486 File Offset: 0x00001686
         private void ManyBandits_consequence(MenuCallbackArgs args)
         {
             HideoutSendTroopsBehavior.HideoutConfig.HideoutOption config = HideoutSendTroopsBehavior.HideoutConfig.Config;
@@ -217,7 +192,6 @@ namespace HideoutPartyUnlimited
             GameMenu.SwitchToMenu("hideout_menu_option");
         }
 
-        // Token: 0x06000058 RID: 88 RVA: 0x000034A5 File Offset: 0x000016A5
         private bool Contest2_condition(MenuCallbackArgs args)
         {
             args.optionLeaveType = (GameMenuOption.LeaveType)14;
@@ -225,7 +199,6 @@ namespace HideoutPartyUnlimited
             return true;
         }
 
-        // Token: 0x06000059 RID: 89 RVA: 0x000034C8 File Offset: 0x000016C8
         private void Contest2_consequence(MenuCallbackArgs args)
         {
             if (HideoutSendTroopsBehavior.HideoutState.DesignContest2Exist > 0)
@@ -241,7 +214,6 @@ namespace HideoutPartyUnlimited
             GameMenu.SwitchToMenu("hideout_menu_option");
         }
 
-        // Token: 0x0600005A RID: 90 RVA: 0x00003538 File Offset: 0x00001738
         private bool game_menu_attack_hideout_parties_on_condition(MenuCallbackArgs args)
         {
             args.optionLeaveType = (GameMenuOption.LeaveType)10;
@@ -258,7 +230,6 @@ namespace HideoutPartyUnlimited
             return false;
         }
 
-        // Token: 0x0600005B RID: 91 RVA: 0x0000361C File Offset: 0x0000181C
         private void game_menu_encounter_order_attack_on_consequence(MenuCallbackArgs args)
         {
             Helper.ReflectionInvokeMethod_Instance((from x in Campaign.Current.SandBoxManager.GameStarter.CampaignBehaviors
@@ -290,7 +261,6 @@ namespace HideoutPartyUnlimited
             }
         }
 
-        // Token: 0x0600005C RID: 92 RVA: 0x0000373C File Offset: 0x0000193C
         private bool game_menu_attack_hideout_call_bandits_on_condition(MenuCallbackArgs args)
         {
             if (HideoutSendTroopsBehavior.HideoutConfig.Config.FightingManyBanditsFlg)
@@ -310,7 +280,6 @@ namespace HideoutPartyUnlimited
             return false;
         }
 
-        // Token: 0x0600005D RID: 93 RVA: 0x0000382C File Offset: 0x00001A2C
         private void game_menu_encounter_order_attack_call_bandits_on_consequence(MenuCallbackArgs args)
         {
             HideoutCampaignBehavior campaignBehavior = Campaign.Current.GetCampaignBehavior<HideoutCampaignBehavior>();
@@ -321,7 +290,6 @@ namespace HideoutPartyUnlimited
             campaignBehavior.Attack_on_consequence(args);
         }
 
-        // Token: 0x0600005E RID: 94 RVA: 0x00003850 File Offset: 0x00001A50
         private bool game_menu_attack_hideout_Contest2_on_condition(MenuCallbackArgs args)
         {
             if (HideoutSendTroopsBehavior.HideoutConfig.Config.SceneDesignContest2Flg)
@@ -341,7 +309,6 @@ namespace HideoutPartyUnlimited
             return false;
         }
 
-        // Token: 0x0600005F RID: 95 RVA: 0x00003940 File Offset: 0x00001B40
         private void game_menu_encounter_order_attack_Contest2_on_consequence(MenuCallbackArgs args)
         {
             HideoutCampaignBehavior campaignBehavior = Campaign.Current.GetCampaignBehavior<HideoutCampaignBehavior>();
@@ -358,7 +325,6 @@ namespace HideoutPartyUnlimited
             campaignBehavior.Attack_on_consequence(args);
         }
 
-        // Token: 0x06000060 RID: 96 RVA: 0x000039D0 File Offset: 0x00001BD0
         private bool game_menu_attack_hideout_Contest2_space_on_condition(MenuCallbackArgs args)
         {
             if (HideoutSendTroopsBehavior.HideoutConfig.Config.SceneDesignContest2Flg)
@@ -377,11 +343,9 @@ namespace HideoutPartyUnlimited
             return false;
         }
 
-        // Token: 0x02000011 RID: 17
         [HarmonyPatch(typeof(SandBoxMissions), "GetPriorityListForHideoutMission")]
         private class HPUGetPriorityListForHideoutMissionPatch
         {
-            // Token: 0x06000076 RID: 118 RVA: 0x00003BD8 File Offset: 0x00001DD8
             private static void Prefix(MapEvent playerMapEvent, BattleSideEnum side, ref int firstPhaseTroopCount)
             {
                 if (HideoutSendTroopsBehavior.HideoutConfig.Config.FightingManyBanditsFlg && HideoutSendTroopsBehavior.HideoutState.CurrentState == HideoutSendTroopsBehavior.HideoutState.State.CallBandits)
@@ -401,7 +365,6 @@ namespace HideoutPartyUnlimited
                 }
             }
 
-            // Token: 0x06000077 RID: 119 RVA: 0x00003C74 File Offset: 0x00001E74
             private static void Finalizer(Exception __exception)
             {
                 if (__exception != null)
@@ -411,11 +374,9 @@ namespace HideoutPartyUnlimited
             }
         }
 
-        // Token: 0x02000012 RID: 18
         [HarmonyPatch(typeof(BattleSimulation), "OnReturn")]
         private class HPUBattleSimulationPatch
         {
-            // Token: 0x06000079 RID: 121 RVA: 0x00003C90 File Offset: 0x00001E90
             private static bool Prefix(BattleSimulation __instance)
             {
                 if (Settlement.CurrentSettlement != null && Settlement.CurrentSettlement.IsHideout)
@@ -425,7 +386,7 @@ namespace HideoutPartyUnlimited
                         partyBase.MemberRoster.RemoveZeroCounts();
                     }
                     PlayerEncounter.Update();
-                    BattleState battleState = HideoutSendTroopsBehavior.HPUBattleSimulationPatch.ConvertToBattleStale(__instance);
+                    BattleState battleState = HideoutSendTroopsBehavior.HPUBattleSimulationPatch.ConvertToBattleState(__instance);
                     Helper.ReflectionSetFieldPropertyValue_Instance(PlayerEncounter.Battle, "BattleState", battleState);
                     CampaignEventDispatcher.Instance.OnMissionEnded(Mission.Current);
                     GameMenu.SwitchToMenu("hideout_place");
@@ -434,7 +395,7 @@ namespace HideoutPartyUnlimited
                 return true;
             }
 
-            private static BattleState ConvertToBattleStale(BattleSimulation battleSimulation)
+            private static BattleState ConvertToBattleState(BattleSimulation battleSimulation)
             {
                 if (battleSimulation.BattleObserver is SPScoreboardVM)
                 {
@@ -469,7 +430,6 @@ namespace HideoutPartyUnlimited
                 return 0;
             }
 
-            // Token: 0x0600007B RID: 123 RVA: 0x00003DD4 File Offset: 0x00001FD4
             private static void Finalizer(Exception __exception)
             {
                 if (__exception != null)
@@ -479,53 +439,33 @@ namespace HideoutPartyUnlimited
             }
         }
 
-        // Token: 0x02000013 RID: 19
         public class HideoutOptinManager
         {
-            // Token: 0x17000010 RID: 16
-            // (get) Token: 0x0600007D RID: 125 RVA: 0x00003DED File Offset: 0x00001FED
-            // (set) Token: 0x0600007E RID: 126 RVA: 0x00003DF5 File Offset: 0x00001FF5
             private HideoutSendTroopsBehavior.HideoutOptinManager.Menu OneMenu { get; set; }
 
-            // Token: 0x17000011 RID: 17
-            // (get) Token: 0x0600007F RID: 127 RVA: 0x00003DFE File Offset: 0x00001FFE
-            // (set) Token: 0x06000080 RID: 128 RVA: 0x00003E06 File Offset: 0x00002006
             private List<HideoutSendTroopsBehavior.HideoutOptinManager.Option> OptionList { get; set; } = new List<HideoutSendTroopsBehavior.HideoutOptinManager.Option>();
 
-            // Token: 0x17000012 RID: 18
-            // (get) Token: 0x06000081 RID: 129 RVA: 0x00003E0F File Offset: 0x0000200F
-            // (set) Token: 0x06000082 RID: 130 RVA: 0x00003E17 File Offset: 0x00002017
             private List<HideoutSendTroopsBehavior.HideoutOptinManager.Option> RelatedOptionList { get; set; } = new List<HideoutSendTroopsBehavior.HideoutOptinManager.Option>();
 
-            // Token: 0x17000013 RID: 19
-            // (get) Token: 0x06000083 RID: 131 RVA: 0x00003E20 File Offset: 0x00002020
-            // (set) Token: 0x06000084 RID: 132 RVA: 0x00003E28 File Offset: 0x00002028
             private List<Tuple<string, HideoutSendTroopsBehavior.HideoutOptinManager.Option, HideoutSendTroopsBehavior.HideoutOptinManager.Option>> InteractionOptionList { get; set; } = new List<Tuple<string, HideoutSendTroopsBehavior.HideoutOptinManager.Option, HideoutSendTroopsBehavior.HideoutOptinManager.Option>>();
 
-            // Token: 0x17000014 RID: 20
-            // (get) Token: 0x06000085 RID: 133 RVA: 0x00003E31 File Offset: 0x00002031
-            // (set) Token: 0x06000086 RID: 134 RVA: 0x00003E39 File Offset: 0x00002039
             public string MemoMenuStringID { get; set; }
 
-            // Token: 0x06000087 RID: 135 RVA: 0x00003E42 File Offset: 0x00002042
             public HideoutOptinManager(string menuId, string menuText, OnInitDelegate initDelegate, GameOverlays.MenuOverlayType overlay = 0, GameMenu.MenuFlags menuFlags = 0, object relatedObject = null)
             {
                 this.OneMenu = new HideoutSendTroopsBehavior.HideoutOptinManager.Menu(menuId, menuText, initDelegate, overlay, menuFlags, relatedObject);
             }
 
-            // Token: 0x06000088 RID: 136 RVA: 0x00003E80 File Offset: 0x00002080
             public void RegisterAddGameMenuOption(string menuId, string optionId, string optionText, string insertTargetId, GameMenuOption.OnConditionDelegate condition, GameMenuOption.OnConsequenceDelegate consequence, bool isLeave = false, int index = -1, bool isRepeatable = false)
             {
                 this.OptionList.Add(new HideoutSendTroopsBehavior.HideoutOptinManager.Option(menuId, optionId, optionText, insertTargetId, condition, consequence, isLeave, index, isRepeatable));
             }
 
-            // Token: 0x06000089 RID: 137 RVA: 0x00003EAC File Offset: 0x000020AC
             public void RegisterAddGameMenuOptionRelated(string menuId, string optionId, string optionText, string insertTargetId, GameMenuOption.OnConditionDelegate condition, GameMenuOption.OnConsequenceDelegate consequence, bool isLeave = false, int index = -1, bool isRepeatable = false)
             {
                 this.RelatedOptionList.Add(new HideoutSendTroopsBehavior.HideoutOptinManager.Option(menuId, optionId, optionText, insertTargetId, condition, consequence, isLeave, index, isRepeatable));
             }
 
-            // Token: 0x0600008A RID: 138 RVA: 0x00003ED8 File Offset: 0x000020D8
             public void InteractionOption(string hideoutOption, string optionId, string otherMenuId, string otherOptionId)
             {
                 HideoutSendTroopsBehavior.HideoutOptinManager.Option item = this.OptionList.Find((HideoutSendTroopsBehavior.HideoutOptinManager.Option x) => x.OptionId == optionId);
@@ -533,7 +473,6 @@ namespace HideoutPartyUnlimited
                 this.InteractionOptionList.Add(new Tuple<string, HideoutSendTroopsBehavior.HideoutOptinManager.Option, HideoutSendTroopsBehavior.HideoutOptinManager.Option>(hideoutOption, item, item2));
             }
 
-            // Token: 0x0600008B RID: 139 RVA: 0x00003F44 File Offset: 0x00002144
             public void ProcessAddGameMenuOption()
             {
                 PropertyInfo[] properties = typeof(HideoutSendTroopsBehavior.HideoutConfig.HideoutOption).GetProperties();
@@ -585,14 +524,12 @@ namespace HideoutPartyUnlimited
                 gameStarter.AddGameMenuOption(this.OneMenu.MenuId, "OptionBack", "Back", new GameMenuOption.OnConditionDelegate(this.OptionBack_condition), new GameMenuOption.OnConsequenceDelegate(this.ProcessBack), false, -1, false);
             }
 
-            // Token: 0x0600008C RID: 140 RVA: 0x00004324 File Offset: 0x00002524
             private bool OptionBack_condition(MenuCallbackArgs args)
             {
                 args.optionLeaveType = (GameMenuOption.LeaveType)16;
                 return true;
             }
 
-            // Token: 0x0600008D RID: 141 RVA: 0x00004330 File Offset: 0x00002530
             public void ProcessBack(MenuCallbackArgs args)
             {
                 HideoutSendTroopsBehavior.HideoutConfig.SaveFile();
@@ -639,7 +576,6 @@ namespace HideoutPartyUnlimited
                 GameMenu.SwitchToMenu(this.MemoMenuStringID);
             }
 
-            // Token: 0x0600008E RID: 142 RVA: 0x0000454C File Offset: 0x0000274C
             private void InsertAfterGameMenuOptionSort(string menuId, string targetIdString, string moveIdString)
             {
                 List<GameMenuOption> list = Helper.ReflectionGetField_Instance(Helper.ReflectionInvokeMethod_Instance(Helper.ReflectionGetField_Instance(Campaign.Current.SandBoxManager.GameStarter, "_gameMenuManager") as GameMenuManager, "GetGameMenu", new object[]
@@ -661,7 +597,6 @@ namespace HideoutPartyUnlimited
                 }
             }
 
-            // Token: 0x0600008F RID: 143 RVA: 0x00004614 File Offset: 0x00002814
             private void DeleteGameMenuOption(string menuId, string targetIdString)
             {
                 List<GameMenuOption> list = Helper.ReflectionGetField_Instance(Helper.ReflectionInvokeMethod_Instance(Campaign.Current.GameMenuManager, "GetGameMenu", new object[]
@@ -676,7 +611,6 @@ namespace HideoutPartyUnlimited
                 }
             }
 
-            // Token: 0x06000090 RID: 144 RVA: 0x00004688 File Offset: 0x00002888
             private bool CheckGameMenuOption(string menuId, string targetIdString)
             {
                 return (Helper.ReflectionGetField_Instance(Helper.ReflectionInvokeMethod_Instance(Campaign.Current.GameMenuManager, "GetGameMenu", new object[]
@@ -685,55 +619,26 @@ namespace HideoutPartyUnlimited
                 }) as GameMenu, "_menuItems") as List<GameMenuOption>).FindIndex((GameMenuOption x) => x.IdString == targetIdString) >= 0;
             }
 
-            // Token: 0x0200001A RID: 26
             private class Option
             {
-                // Token: 0x1700001F RID: 31
-                // (get) Token: 0x060000C3 RID: 195 RVA: 0x00004CB7 File Offset: 0x00002EB7
-                // (set) Token: 0x060000C4 RID: 196 RVA: 0x00004CBF File Offset: 0x00002EBF
                 public string MenuId { get; set; }
 
-                // Token: 0x17000020 RID: 32
-                // (get) Token: 0x060000C5 RID: 197 RVA: 0x00004CC8 File Offset: 0x00002EC8
-                // (set) Token: 0x060000C6 RID: 198 RVA: 0x00004CD0 File Offset: 0x00002ED0
                 public string OptionId { get; set; }
 
-                // Token: 0x17000021 RID: 33
-                // (get) Token: 0x060000C7 RID: 199 RVA: 0x00004CD9 File Offset: 0x00002ED9
-                // (set) Token: 0x060000C8 RID: 200 RVA: 0x00004CE1 File Offset: 0x00002EE1
                 public string OptionText { get; set; }
 
-                // Token: 0x17000022 RID: 34
-                // (get) Token: 0x060000C9 RID: 201 RVA: 0x00004CEA File Offset: 0x00002EEA
-                // (set) Token: 0x060000CA RID: 202 RVA: 0x00004CF2 File Offset: 0x00002EF2
                 public string InsertTargetId { get; set; }
 
-                // Token: 0x17000023 RID: 35
-                // (get) Token: 0x060000CB RID: 203 RVA: 0x00004CFB File Offset: 0x00002EFB
-                // (set) Token: 0x060000CC RID: 204 RVA: 0x00004D03 File Offset: 0x00002F03
                 public GameMenuOption.OnConditionDelegate Condition { get; set; }
 
-                // Token: 0x17000024 RID: 36
-                // (get) Token: 0x060000CD RID: 205 RVA: 0x00004D0C File Offset: 0x00002F0C
-                // (set) Token: 0x060000CE RID: 206 RVA: 0x00004D14 File Offset: 0x00002F14
                 public GameMenuOption.OnConsequenceDelegate Consequence { get; set; }
 
-                // Token: 0x17000025 RID: 37
-                // (get) Token: 0x060000CF RID: 207 RVA: 0x00004D1D File Offset: 0x00002F1D
-                // (set) Token: 0x060000D0 RID: 208 RVA: 0x00004D25 File Offset: 0x00002F25
                 public bool IsLeave { get; set; }
 
-                // Token: 0x17000026 RID: 38
-                // (get) Token: 0x060000D1 RID: 209 RVA: 0x00004D2E File Offset: 0x00002F2E
-                // (set) Token: 0x060000D2 RID: 210 RVA: 0x00004D36 File Offset: 0x00002F36
                 public int Index { get; set; }
 
-                // Token: 0x17000027 RID: 39
-                // (get) Token: 0x060000D3 RID: 211 RVA: 0x00004D3F File Offset: 0x00002F3F
-                // (set) Token: 0x060000D4 RID: 212 RVA: 0x00004D47 File Offset: 0x00002F47
                 public bool IsRepeatable { get; set; }
 
-                // Token: 0x060000D5 RID: 213 RVA: 0x00004D50 File Offset: 0x00002F50
                 public Option(string menuId, string optionId, string optionText, string insertTargetId, GameMenuOption.OnConditionDelegate condition, GameMenuOption.OnConsequenceDelegate consequence, bool isLeave = false, int index = -1, bool isRepeatable = false)
                 {
                     this.MenuId = menuId;
@@ -748,40 +653,20 @@ namespace HideoutPartyUnlimited
                 }
             }
 
-            // Token: 0x0200001B RID: 27
             private class Menu
             {
-                // Token: 0x17000028 RID: 40
-                // (get) Token: 0x060000D6 RID: 214 RVA: 0x00004DA8 File Offset: 0x00002FA8
-                // (set) Token: 0x060000D7 RID: 215 RVA: 0x00004DB0 File Offset: 0x00002FB0
                 public string MenuId { get; set; }
 
-                // Token: 0x17000029 RID: 41
-                // (get) Token: 0x060000D8 RID: 216 RVA: 0x00004DB9 File Offset: 0x00002FB9
-                // (set) Token: 0x060000D9 RID: 217 RVA: 0x00004DC1 File Offset: 0x00002FC1
                 public string MenuText { get; set; }
 
-                // Token: 0x1700002A RID: 42
-                // (get) Token: 0x060000DA RID: 218 RVA: 0x00004DCA File Offset: 0x00002FCA
-                // (set) Token: 0x060000DB RID: 219 RVA: 0x00004DD2 File Offset: 0x00002FD2
                 public OnInitDelegate InitDelegate { get; set; }
 
-                // Token: 0x1700002B RID: 43
-                // (get) Token: 0x060000DC RID: 220 RVA: 0x00004DDB File Offset: 0x00002FDB
-                // (set) Token: 0x060000DD RID: 221 RVA: 0x00004DE3 File Offset: 0x00002FE3
                 public GameOverlays.MenuOverlayType Overlay { get; set; }
 
-                // Token: 0x1700002C RID: 44
-                // (get) Token: 0x060000DE RID: 222 RVA: 0x00004DEC File Offset: 0x00002FEC
-                // (set) Token: 0x060000DF RID: 223 RVA: 0x00004DF4 File Offset: 0x00002FF4
                 public GameMenu.MenuFlags MenuFlags { get; set; }
 
-                // Token: 0x1700002D RID: 45
-                // (get) Token: 0x060000E0 RID: 224 RVA: 0x00004DFD File Offset: 0x00002FFD
-                // (set) Token: 0x060000E1 RID: 225 RVA: 0x00004E05 File Offset: 0x00003005
                 public object RelatedObject { get; set; }
 
-                // Token: 0x060000E2 RID: 226 RVA: 0x00004E0E File Offset: 0x0000300E
                 public Menu(string menuId, string menuText, OnInitDelegate initDelegate, GameOverlays.MenuOverlayType overlay = 0, GameMenu.MenuFlags menuFlags = 0, object relatedObject = null)
                 {
                     this.MenuId = menuId;
@@ -794,32 +679,22 @@ namespace HideoutPartyUnlimited
             }
         }
 
-        // Token: 0x02000014 RID: 20
         public static class HideoutConfig
         {
-            // Token: 0x17000015 RID: 21
-            // (get) Token: 0x06000091 RID: 145 RVA: 0x000046EB File Offset: 0x000028EB
-            // (set) Token: 0x06000092 RID: 146 RVA: 0x000046F2 File Offset: 0x000028F2
             private static string SendTroopsConfigPath { get; set; } = BasePath.Name + "Modules/HideoutPartyUnlimited/Config.xml";
 
-            // Token: 0x17000016 RID: 22
-            // (get) Token: 0x06000093 RID: 147 RVA: 0x000046FA File Offset: 0x000028FA
-            // (set) Token: 0x06000094 RID: 148 RVA: 0x00004701 File Offset: 0x00002901
             public static HideoutSendTroopsBehavior.HideoutConfig.HideoutOption Config { get; set; } = null;
 
-            // Token: 0x06000095 RID: 149 RVA: 0x00004709 File Offset: 0x00002909
             public static void LoadFile()
             {
                 HideoutSendTroopsBehavior.HideoutConfig.Config = HideoutSendTroopsBehavior.HideoutConfig.XMLLoad(HideoutSendTroopsBehavior.HideoutConfig.SendTroopsConfigPath);
             }
 
-            // Token: 0x06000096 RID: 150 RVA: 0x0000471A File Offset: 0x0000291A
             public static void SaveFile()
             {
                 HideoutSendTroopsBehavior.HideoutConfig.XMLSave(HideoutSendTroopsBehavior.HideoutConfig.SendTroopsConfigPath, HideoutSendTroopsBehavior.HideoutConfig.Config);
             }
 
-            // Token: 0x06000097 RID: 151 RVA: 0x0000472C File Offset: 0x0000292C
             private static void XMLSave(string path, HideoutSendTroopsBehavior.HideoutConfig.HideoutOption option)
             {
                 XmlSerializer xmlSerializer = new XmlSerializer(typeof(HideoutSendTroopsBehavior.HideoutConfig.HideoutOption));
@@ -828,8 +703,7 @@ namespace HideoutPartyUnlimited
                     xmlSerializer.Serialize(streamWriter, option);
                 }
             }
-
-            // Token: 0x06000098 RID: 152 RVA: 0x0000477C File Offset: 0x0000297C
+            
             private static HideoutSendTroopsBehavior.HideoutConfig.HideoutOption XMLLoad(string path)
             {
                 HideoutSendTroopsBehavior.HideoutConfig.FileExistCheck(path);
@@ -842,7 +716,6 @@ namespace HideoutPartyUnlimited
                 return result;
             }
 
-            // Token: 0x06000099 RID: 153 RVA: 0x000047D8 File Offset: 0x000029D8
             private static void FileExistCheck(string path)
             {
                 if (!File.Exists(path))
@@ -851,52 +724,26 @@ namespace HideoutPartyUnlimited
                 }
             }
 
-            // Token: 0x02000023 RID: 35
             public class HideoutOption
             {
-                // Token: 0x1700002E RID: 46
-                // (get) Token: 0x060000F3 RID: 243 RVA: 0x00004F6E File Offset: 0x0000316E
-                // (set) Token: 0x060000F4 RID: 244 RVA: 0x00004F76 File Offset: 0x00003176
                 public bool SendTroopsFlg { get; set; }
 
-                // Token: 0x1700002F RID: 47
-                // (get) Token: 0x060000F5 RID: 245 RVA: 0x00004F7F File Offset: 0x0000317F
-                // (set) Token: 0x060000F6 RID: 246 RVA: 0x00004F87 File Offset: 0x00003187
                 public bool DayTimeHideoutAssaultFlg { get; set; }
 
-                // Token: 0x17000030 RID: 48
-                // (get) Token: 0x060000F7 RID: 247 RVA: 0x00004F90 File Offset: 0x00003190
-                // (set) Token: 0x060000F8 RID: 248 RVA: 0x00004F98 File Offset: 0x00003198
                 public bool LeftInventorySortMemorizeFlg { get; set; }
 
-                // Token: 0x17000031 RID: 49
-                // (get) Token: 0x060000F9 RID: 249 RVA: 0x00004FA1 File Offset: 0x000031A1
-                // (set) Token: 0x060000FA RID: 250 RVA: 0x00004FA9 File Offset: 0x000031A9
                 public bool FightingManyBanditsFlg { get; set; }
 
-                // Token: 0x17000032 RID: 50
-                // (get) Token: 0x060000FB RID: 251 RVA: 0x00004FB2 File Offset: 0x000031B2
-                // (set) Token: 0x060000FC RID: 252 RVA: 0x00004FBA File Offset: 0x000031BA
                 public bool SceneDesignContest2Flg { get; set; }
             }
         }
 
-        // Token: 0x02000015 RID: 21
         public static class HideoutState
         {
-            // Token: 0x17000017 RID: 23
-            // (get) Token: 0x0600009B RID: 155 RVA: 0x00004809 File Offset: 0x00002A09
-            // (set) Token: 0x0600009C RID: 156 RVA: 0x00004810 File Offset: 0x00002A10
             public static HideoutSendTroopsBehavior.HideoutState.State CurrentState { get; set; } = HideoutSendTroopsBehavior.HideoutState.State.None;
 
-            // Token: 0x17000018 RID: 24
-            // (get) Token: 0x0600009D RID: 157 RVA: 0x00004818 File Offset: 0x00002A18
-            // (set) Token: 0x0600009E RID: 158 RVA: 0x0000481F File Offset: 0x00002A1F
             public static int DesignContest2Exist { get; set; } = 0;
 
-            // Token: 0x17000019 RID: 25
-            // (get) Token: 0x0600009F RID: 159 RVA: 0x00004827 File Offset: 0x00002A27
-            // (set) Token: 0x060000A0 RID: 160 RVA: 0x0000482E File Offset: 0x00002A2E
             public static Dictionary<string, string> DesignContest2 { get; set; } = new Dictionary<string, string>
             {
                 {
@@ -957,35 +804,22 @@ namespace HideoutPartyUnlimited
                 }
             };
 
-            // Token: 0x1700001A RID: 26
-            // (get) Token: 0x060000A1 RID: 161 RVA: 0x00004836 File Offset: 0x00002A36
-            // (set) Token: 0x060000A2 RID: 162 RVA: 0x0000483D File Offset: 0x00002A3D
             public static string OriginalSceneName { get; set; } = "";
 
-            // Token: 0x02000024 RID: 36
             public enum State
             {
-                // Token: 0x0400004E RID: 78
                 None,
-                // Token: 0x0400004F RID: 79
                 Attack,
-                // Token: 0x04000050 RID: 80
                 SendTroops,
-                // Token: 0x04000051 RID: 81
                 CallBandits
             }
         }
 
-        // Token: 0x02000016 RID: 22
         [HarmonyPatch(typeof(Hideout), "NextPossibleAttackTime", MethodType.Getter)]
         private class HideoutNextPossibleAttackTimePatch
         {
-            // Token: 0x1700001B RID: 27
-            // (get) Token: 0x060000A4 RID: 164 RVA: 0x00004955 File Offset: 0x00002B55
-            // (set) Token: 0x060000A5 RID: 165 RVA: 0x0000495C File Offset: 0x00002B5C
             private static CampaignTime SaveNextPossibleAttackTime { get; set; } = CampaignTime.Zero;
 
-            // Token: 0x060000A6 RID: 166 RVA: 0x00004964 File Offset: 0x00002B64
             private static void Postfix(ref CampaignTime __result)
             {
                 if (HideoutSendTroopsBehavior.HideoutConfig.Config.DayTimeHideoutAssaultFlg)
@@ -1020,7 +854,6 @@ namespace HideoutPartyUnlimited
                 }
             }
 
-            // Token: 0x060000A7 RID: 167 RVA: 0x00004A6B File Offset: 0x00002C6B
             private static void Finalizer(Exception __exception)
             {
                 if (__exception != null)
@@ -1030,21 +863,13 @@ namespace HideoutPartyUnlimited
             }
         }
 
-        // Token: 0x02000017 RID: 23
         [HarmonyPatch(typeof(TaleWorlds.CampaignSystem.CampaignBehaviors.HideoutCampaignBehavior), "IsHideoutAttackableNow")]
         private class HideoutCampaignBehaviorIsHideoutAttackableNowPatch
         {
-            // Token: 0x1700001C RID: 28
-            // (get) Token: 0x060000AA RID: 170 RVA: 0x00004A90 File Offset: 0x00002C90
-            // (set) Token: 0x060000AB RID: 171 RVA: 0x00004A97 File Offset: 0x00002C97
             private static int SaveStart { get; set; }
 
-            // Token: 0x1700001D RID: 29
-            // (get) Token: 0x060000AC RID: 172 RVA: 0x00004A9F File Offset: 0x00002C9F
-            // (set) Token: 0x060000AD RID: 173 RVA: 0x00004AA6 File Offset: 0x00002CA6
             private static int SaveEnd { get; set; }
 
-            // Token: 0x060000AE RID: 174 RVA: 0x00004AB0 File Offset: 0x00002CB0
             private static void Prefix(TaleWorlds.CampaignSystem.CampaignBehaviors.HideoutCampaignBehavior __instance)
             {
                 if (HideoutSendTroopsBehavior.HideoutConfig.Config.DayTimeHideoutAssaultFlg)
@@ -1067,7 +892,6 @@ namespace HideoutPartyUnlimited
                 }
             }
 
-            // Token: 0x060000AF RID: 175 RVA: 0x00004B83 File Offset: 0x00002D83
             private static void Finalizer(Exception __exception)
             {
                 if (__exception != null)
@@ -1077,7 +901,6 @@ namespace HideoutPartyUnlimited
             }
         }
 
-        // Token: 0x02000018 RID: 24
         [HarmonyPatch(typeof(SPInventoryVM), MethodType.Constructor, new Type[]
         {
             typeof(InventoryLogic),
@@ -1088,12 +911,8 @@ namespace HideoutPartyUnlimited
         })]
         private class HideoutSPInventorySortTypePatch
         {
-            // Token: 0x1700001E RID: 30
-            // (get) Token: 0x060000B1 RID: 177 RVA: 0x00004B9C File Offset: 0x00002D9C
-            // (set) Token: 0x060000B2 RID: 178 RVA: 0x00004BA3 File Offset: 0x00002DA3
             private static SPInventorySortControllerVM SaveController { get; set; }
 
-            // Token: 0x060000B3 RID: 179 RVA: 0x00004BAC File Offset: 0x00002DAC
             private static void Postfix(SPInventoryVM __instance)
             {
                 if (HideoutSendTroopsBehavior.HideoutConfig.Config.LeftInventorySortMemorizeFlg)
@@ -1110,7 +929,6 @@ namespace HideoutPartyUnlimited
                 }
             }
 
-            // Token: 0x060000B4 RID: 180 RVA: 0x00004C2D File Offset: 0x00002E2D
             private static void Finalizer(Exception __exception)
             {
                 if (__exception != null)
