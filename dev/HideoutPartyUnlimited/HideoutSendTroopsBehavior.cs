@@ -351,7 +351,7 @@ namespace HideoutPartyUnlimited
                 if (HideoutSendTroopsBehavior.HideoutConfig.Config.FightingManyBanditsFlg && HideoutSendTroopsBehavior.HideoutState.CurrentState == HideoutSendTroopsBehavior.HideoutState.State.CallBandits)
                 {
                     HideoutSendTroopsBehavior.HideoutState.CurrentState = HideoutSendTroopsBehavior.HideoutState.State.None;
-                    
+
                     foreach (MobileParty mobileParty in Campaign.Current.BanditParties)
                     //MobilePartiesAroundPositionList(32).GetPartiesAroundPosition(playerMapEvent.Position, 65f))
                     {
@@ -397,34 +397,14 @@ namespace HideoutPartyUnlimited
 
             private static BattleState ConvertToBattleState(BattleSimulation battleSimulation)
             {
-                if (battleSimulation.BattleObserver is SPScoreboardVM)
+                if (battleSimulation.BattleObserver is SPScoreboardVM && PlayerEncounter.Battle.PlayerSide is BattleSideEnum.Attacker)
                 {
                     switch ((battleSimulation.BattleObserver as SPScoreboardVM).BattleResultIndex)
                     {
-                        case -1:
-                            return 0;
                         case 0:
-                            if (PlayerEncounter.Battle.PlayerSide == (BattleSideEnum)1)
-                            {
-                                return (BattleState)1;
-                            }
-                            if (PlayerEncounter.Battle.PlayerSide == null)
-                            {
-                                return (BattleState)2;
-                            }
-                            return 0;
+                            return (BattleState)1;
                         case 1:
-                            if (PlayerEncounter.Battle.PlayerSide == (BattleSideEnum)1)
-                            {
-                                return (BattleState)2;
-                            }
-                            if (PlayerEncounter.Battle.PlayerSide == null)
-                            {
-                                return (BattleState)1;
-                            }
-                            return (BattleState)0;
-                        case 2:
-                            return (BattleState)0;
+                            return (BattleState)2;
                     }
                 }
                 return 0;
@@ -703,7 +683,7 @@ namespace HideoutPartyUnlimited
                     xmlSerializer.Serialize(streamWriter, option);
                 }
             }
-            
+
             private static HideoutSendTroopsBehavior.HideoutConfig.HideoutOption XMLLoad(string path)
             {
                 HideoutSendTroopsBehavior.HideoutConfig.FileExistCheck(path);
