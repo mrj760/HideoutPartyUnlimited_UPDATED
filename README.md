@@ -2,7 +2,7 @@ Look at the original mod for description:
 Hideout Party Unlimited at Mount & Blade II: Bannerlord Nexus
 https://www.nexusmods.com/mountandblade2bannerlord/mods/2063?tab=posts
 
-Updated to Version 1.2.7.
+Updated to Version 1.2.9.
 
 The main portions work. You can:
 - Lead all your troops into hideouts on foot.

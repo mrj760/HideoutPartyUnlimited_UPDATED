@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Module>
-    <Name value="Hideout Party Unlimited Dev"/>
-    <Id value="HideoutPartyUnlimitedDev"/>
-    <Version value="v1.2.0"/>
+    <Name value="Hideout Party Unlimited"/>
+    <Id value="HideoutPartyUnlimited"/>
+    <Version value="v1.2.9"/>
     <ModuleCategory value="Singleplayer"/>
     <SingleplayerModule value="true"/>
     <MultiplayerModule value="false"/>
